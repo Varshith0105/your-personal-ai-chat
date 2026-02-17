@@ -2,52 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 220 13% 18%;
-    --foreground: 220 13% 95%;
+    --background: 230 25% 7%;
+    --foreground: 220 20% 93%;
 
-    --card: 220 13% 15%;
-    --card-foreground: 220 13% 95%;
+    --card: 230 20% 10%;
+    --card-foreground: 220 20% 93%;
 
-    --popover: 220 13% 15%;
-    --popover-foreground: 220 13% 95%;
+    --popover: 230 20% 10%;
+    --popover-foreground: 220 20% 93%;
 
-    --primary: 142 60% 50%;
-    --primary-foreground: 220 13% 10%;
+    --primary: 210 100% 60%;
+    --primary-foreground: 230 25% 5%;
 
-    --secondary: 220 13% 22%;
-    --secondary-foreground: 220 13% 80%;
+    --secondary: 270 60% 55%;
+    --secondary-foreground: 270 100% 95%;
 
-    --muted: 220 10% 25%;
-    --muted-foreground: 220 10% 55%;
+    --muted: 230 15% 16%;
+    --muted-foreground: 220 15% 50%;
 
-    --accent: 220 13% 25%;
-    --accent-foreground: 220 13% 90%;
+    --accent: 230 20% 14%;
+    --accent-foreground: 220 20% 90%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 10% 25%;
-    --input: 220 10% 25%;
-    --ring: 142 60% 50%;
+    --border: 230 15% 16%;
+    --input: 230 15% 16%;
+    --ring: 210 100% 60%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 220 13% 12%;
-    --sidebar-foreground: 220 10% 70%;
-    --sidebar-primary: 142 60% 50%;
-    --sidebar-primary-foreground: 220 13% 10%;
-    --sidebar-accent: 220 13% 18%;
-    --sidebar-accent-foreground: 220 13% 90%;
-    --sidebar-border: 220 10% 20%;
-    --sidebar-ring: 142 60% 50%;
+    --sidebar-background: 230 25% 5%;
+    --sidebar-foreground: 220 15% 55%;
+    --sidebar-primary: 210 100% 60%;
+    --sidebar-primary-foreground: 230 25% 5%;
+    --sidebar-accent: 230 20% 12%;
+    --sidebar-accent-foreground: 220 20% 90%;
+    --sidebar-border: 230 15% 12%;
+    --sidebar-ring: 210 100% 60%;
 
-    --chat-user: 220 13% 25%;
-    --chat-assistant: 220 13% 15%;
-    --chat-input: 220 13% 22%;
+    --chat-user: 230 20% 14%;
+    --chat-assistant: 230 25% 9%;
+    --chat-input: 230 20% 12%;
+
+    --neon-blue: 210 100% 60%;
+    --neon-purple: 270 80% 60%;
+    --neon-cyan: 185 100% 55%;
+    --glass: 230 20% 12%;
+    --glass-border: 230 15% 20%;
   }
 }
 
@@ -57,8 +63,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Outfit', system-ui, sans-serif;
   }
 
   code, pre {
@@ -66,9 +72,49 @@
   }
 }
 
+/* Glassmorphism utilities */
+.glass {
+  background: hsl(var(--glass) / 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid hsl(var(--glass-border) / 0.3);
+}
+
+.glass-strong {
+  background: hsl(var(--glass) / 0.8);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid hsl(var(--glass-border) / 0.4);
+}
+
+/* Neon glow effects */
+.neon-glow-blue {
+  box-shadow: 0 0 15px hsl(210 100% 60% / 0.3), 0 0 45px hsl(210 100% 60% / 0.1);
+}
+
+.neon-glow-purple {
+  box-shadow: 0 0 15px hsl(270 80% 60% / 0.3), 0 0 45px hsl(270 80% 60% / 0.1);
+}
+
+.neon-text-blue {
+  text-shadow: 0 0 10px hsl(210 100% 60% / 0.5), 0 0 30px hsl(210 100% 60% / 0.2);
+}
+
+.neon-text-purple {
+  text-shadow: 0 0 10px hsl(270 80% 60% / 0.5), 0 0 30px hsl(270 80% 60% / 0.2);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, hsl(210 100% 60%), hsl(270 80% 60%), hsl(185 100% 55%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -76,12 +122,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(220 10% 30%);
-  border-radius: 3px;
+  background: hsl(230 15% 22%);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(220 10% 40%);
+  background: hsl(210 100% 60% / 0.4);
 }
 
 /* Markdown prose styling */
@@ -94,11 +140,15 @@
 }
 
 .prose-chat pre {
-  @apply bg-card rounded-lg p-4 my-3 overflow-x-auto text-sm border border-border;
+  @apply rounded-lg p-4 my-3 overflow-x-auto text-sm;
+  background: hsl(var(--glass) / 0.8);
+  border: 1px solid hsl(var(--glass-border) / 0.3);
 }
 
 .prose-chat code:not(pre code) {
-  @apply bg-muted px-1.5 py-0.5 rounded text-sm text-primary;
+  @apply px-1.5 py-0.5 rounded text-sm;
+  background: hsl(var(--muted));
+  color: hsl(var(--neon-cyan));
 }
 
 .prose-chat ul, .prose-chat ol {
@@ -122,11 +172,14 @@
 .prose-chat h3 { @apply text-base; }
 
 .prose-chat blockquote {
-  @apply border-l-2 border-primary/50 pl-4 italic text-muted-foreground my-3;
+  @apply pl-4 italic my-3;
+  border-left: 2px solid hsl(var(--neon-purple) / 0.5);
+  color: hsl(var(--muted-foreground));
 }
 
 .prose-chat a {
-  @apply text-primary underline underline-offset-2 hover:opacity-80;
+  color: hsl(var(--neon-cyan));
+  @apply underline underline-offset-2 hover:opacity-80;
 }
 
 /* Typing animation */
@@ -138,5 +191,40 @@
 .typing-cursor::after {
   content: '▋';
   animation: blink 1s infinite;
-  @apply text-primary ml-0.5;
+  color: hsl(var(--neon-blue));
+  margin-left: 2px;
+}
+
+/* Glowing ring animation */
+@keyframes glow-ring {
+  0%, 100% { 
+    box-shadow: 0 0 8px hsl(210 100% 60% / 0.4), 0 0 20px hsl(270 80% 60% / 0.2);
+  }
+  50% { 
+    box-shadow: 0 0 15px hsl(210 100% 60% / 0.6), 0 0 35px hsl(270 80% 60% / 0.3);
+  }
+}
+
+.glow-ring {
+  animation: glow-ring 3s ease-in-out infinite;
+}
+
+/* Pulse gradient */
+@keyframes pulse-gradient {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.pulse-gradient {
+  animation: pulse-gradient 2s ease-in-out infinite;
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.float-anim {
+  animation: float 4s ease-in-out infinite;
 }
