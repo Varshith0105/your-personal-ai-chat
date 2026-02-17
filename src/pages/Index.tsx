@@ -1,9 +1,13 @@
 import { useRef, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { PanelLeftClose, PanelLeft } from "lucide-react";
+import { ParticleBackground } from "@/components/ParticleBackground";
 import { ChatSidebar } from "@/components/ChatSidebar";
 import { ChatMessage } from "@/components/ChatMessage";
 import { ChatInput } from "@/components/ChatInput";
 import { WelcomeScreen } from "@/components/WelcomeScreen";
+import { ThinkingIndicator } from "@/components/ThinkingIndicator";
+import { MoodIndicator } from "@/components/MoodIndicator";
 import { useChat } from "@/hooks/use-chat";
 import { useToast } from "@/hooks/use-toast";
 
@@ -21,6 +25,7 @@ const Index = () => {
   } = useChat();
 
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [mood, setMood] = useState("friendly");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -41,9 +46,12 @@ const Index = () => {
   const messages = activeConversation?.messages || [];
   const lastMsg = messages[messages.length - 1];
   const isStreamingLast = isLoading && lastMsg?.role === "assistant";
+  const showThinking = isLoading && (!lastMsg || lastMsg.role === "user");
 
   return (
-    <div className="flex h-screen w-full overflow-hidden">
+    <div className="flex h-screen w-full overflow-hidden relative">
+      <ParticleBackground />
+
       <ChatSidebar
         conversations={conversations}
         activeId={activeConversationId}
@@ -54,22 +62,28 @@ const Index = () => {
         onToggle={() => setSidebarOpen(!sidebarOpen)}
       />
 
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 relative z-10">
         {/* Header */}
-        <header className="flex items-center gap-2 px-4 h-12 border-b border-border shrink-0">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-1.5 rounded-lg hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground"
-          >
-            {sidebarOpen ? (
-              <PanelLeftClose className="h-5 w-5" />
-            ) : (
-              <PanelLeft className="h-5 w-5" />
-            )}
-          </button>
-          <span className="text-sm font-medium text-foreground truncate">
-            {activeConversation?.title || "New chat"}
-          </span>
+        <header className="flex items-center justify-between gap-2 px-4 h-14 border-b border-glass-border/20 glass-strong shrink-0">
+          <div className="flex items-center gap-3">
+            <motion.button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-1.5 rounded-lg hover:bg-accent/50 transition-colors text-muted-foreground hover:text-foreground"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {sidebarOpen ? (
+                <PanelLeftClose className="h-5 w-5" />
+              ) : (
+                <PanelLeft className="h-5 w-5" />
+              )}
+            </motion.button>
+            <span className="text-sm font-medium text-foreground truncate">
+              {activeConversation?.title || "New chat"}
+            </span>
+          </div>
+
+          <MoodIndicator activeMood={mood} onMoodChange={setMood} />
         </header>
 
         {/* Messages area */}
@@ -84,6 +98,7 @@ const Index = () => {
                 isStreaming={isStreamingLast && i === messages.length - 1}
               />
             ))}
+            <ThinkingIndicator visible={showThinking} />
             <div ref={messagesEndRef} />
           </div>
         )}
