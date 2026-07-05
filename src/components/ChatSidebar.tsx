@@ -86,7 +86,7 @@ export function ChatSidebar({
           {/* Footer */}
           <div className="p-3 border-t border-glass-border/20">
             <p className="text-[10px] text-muted-foreground text-center">
-              Powered by Lovable AI ⚡
+              
             </p>
           </div>
         </motion.aside>
